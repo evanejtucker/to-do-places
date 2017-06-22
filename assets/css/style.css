@@ -2,3 +2,7 @@ body {
 	background: #92C9E4;
 	color: #012949;
 }
+
+.dropdown-toggle {
+	width: 100%;
+}
