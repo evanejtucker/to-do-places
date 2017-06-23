@@ -1,12 +1,112 @@
+
 body {
-	background: #92C9E4;
-	color: #012949;
+    background: #DEE5E5 ;
+    color: #012949 ;
+    font-family: 'Open Sans', sans-serif;
 }
 
+/* Start of Styling for Navigation*/
 #top-nav {
-	width: 100%;
+	position: fixed;
+    color: #9DC5BB ;
+    z-index: 11;
+    width: 100%;
 }
 
-#sign-in {
-	margin-top: 5px;
+.navbar-brand {
+	padding-left: 25px;
+	font-size: 1.5em;
 }
+
+#sign-in a {
+	margin-top: 5px;
+	color: #3D7068;
+}
+
+.side-nav {
+	position: fixed;
+	height: 100%;
+	width: 200px;
+	top: 50px;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: #9DC5BB;
+    color: #F7F9F9;
+}
+
+.side-nav li {
+	display: block;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: left;
+	padding-left: 25px;
+	font-family: 'Philosopher', sans-serif;
+	font-size: 20px;
+}
+
+.side-nav li:hover {
+	background: #3D7068;
+}
+
+/*end of styling for navigation*/
+#main {
+	margin-left: 200px;
+	margin-top: 60px;
+}
+
+#map {
+	height: 500px;
+	width: 60%;
+	margin-left: 30px;
+	background: papayawhip;
+}
+
+#list {
+	width: 30%;
+	height: 500px;
+	background: #FFFFFF;
+	border-radius: 15px;
+	margin-left: 30px;
+}
+
+#list-title {
+	text-align: center;
+	border-bottom: 2px solid black;
+}
+
+
+#footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
+}
+
+@media screen and (min-width: 640px) {
+  #map {
+    width: 400px;
+    background: red;
+  }
+  #list {
+  	width: 400px;
+  }
+}
+
+@media screen and (max-width: 1640px) {
+  #map {
+    /* width: 400px; */
+    background: blue;
+  }
+  #list {
+  	/*width: 400px;*/
+  }
+}
+
+
+
+
+
