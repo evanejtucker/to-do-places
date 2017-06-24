@@ -4,6 +4,7 @@ var map;
 		var request;
 		var service;
 		var markers = [];
+		var typeSelection = 'cafe';
 
 		function initialize() {
 			var center = new google.maps.LatLng(39.7392, -104.9903);
