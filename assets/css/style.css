@@ -64,6 +64,7 @@ body {
 	width: 60%;
 	margin-left: 30px;
 	background: papayawhip;
+	border: black 3px solid;
 }
 
 #list {
