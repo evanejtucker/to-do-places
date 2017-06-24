@@ -49,13 +49,13 @@
 <!-- Sidebar -->
 <div id="sidebar-wrapper">
 	<ul class="side-nav">
-		<li class="nav-item" id="item-1"><i class="fa fa-shopping-cart" aria-hidden="true"></i>  Groceries</li>
-		<li class="nav-item" id="item-2"><i class="fa fa-money" aria-hidden="true"></i> Banks</li>
-		<li class="nav-item" id="item-3"> <i class="fa fa-glass" aria-hidden="true"></i> Liquer Stores</li>
-		<li class="nav-item" id="item-4"><i class="fa fa-medkit" aria-hidden="true"></i> Drug Stores</li>
-		<li class="nav-item" id="item-5"><i class="fa fa-flask" aria-hidden="true"></i> Meth Labs</li>
-		<li class="nav-item" id="item-6"><i class="fa fa-car" aria-hidden="true"></i> Gas Stations</li>
-		<li class="nav-item" id="item-7"> <i class="fa fa-bicycle" aria-hidden="true"></i> Fitness</li>
+		<li class="nav-item" id="item-1" val="grocery_or_supermarket"><i class="fa fa-shopping-cart" aria-hidden="true"></i>  Groceries</li>
+		<li class="nav-item" id="item-2" val="bank"><i class="fa fa-money" aria-hidden="true"></i> Banks</li>
+		<li class="nav-item" id="item-3" val="liquor_store"> <i class="fa fa-glass" aria-hidden="true"></i> Liquor Stores</li>
+		<li class="nav-item" id="item-4" val="pharmacy"><i class="fa fa-medkit" aria-hidden="true"></i> Pharmacies</li>
+		<li class="nav-item" id="item-5" val=""><i class="fa fa-flask" aria-hidden="true"></i> Meth Labs</li>
+		<li class="nav-item" id="item-6" val="gas_station"><i class="fa fa-car" aria-hidden="true"></i> Gas Stations</li>
+		<li class="nav-item" id="item-7" val="gym"> <i class="fa fa-bicycle" aria-hidden="true"></i> Fitness</li>
 	</ul>
 	<div class="expand">Expand</div> 
 </div>
@@ -63,7 +63,7 @@
 <!-- will contain all body content -->
 <div class="container-fluid">
 	<div class="row" id="main">
-		<div class="col-md-6 col-sm-12" id="map"></div>
+		<div class="col-md-6 col-sm-12" id="map"><h3 id="loading"><i class="fa fa-spinner" aria-hidden="true"></i>Loading...</h3></div>
 		<div class="col-md-6 col-sm-12" id="list">
 			<h2 id="list-title"> My To-Do List</h2>
 		</div>

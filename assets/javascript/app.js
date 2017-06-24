@@ -6,10 +6,11 @@ var infoWindow;
 var request;
 var service;
 var markers = [];
-// var typeSelection = 'cafe';
+var typeSelection = "hindu_temple";
+
 
 function initialize() {
-	typeSelection = "cafe"
+	
 	var center = new google.maps.LatLng(39.7392, -104.9903);
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: center,
@@ -69,12 +70,15 @@ function clearResults(markers) {
 }
 
 function setType() {
-	typeSelection = $(this).text().trim();
-	// alert(typeSelection);
-	console.log($(this).text().trim());
+	typeSelection = $(this).attr("val");
+	console.log(typeSelection);
+	initialize();
 }
 
 $(".nav-item").on("click", setType);
+
+
+
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
