@@ -8,7 +8,6 @@ var service;
 var markers = [];
 var typeSelection = "hindu_temple";
 
-
 function initialize() {
 	
 	var center = new google.maps.LatLng(39.7392, -104.9903);
@@ -58,6 +57,7 @@ function createMarker(place) {
 		//var rating = (place.rating).toString();
 		infoWindow.setContent(place.name);
 		infoWindow.open(map, this);
+		console.log(place.place_id);
 	});
 	return marker;
 }
