@@ -53,6 +53,10 @@ body {
 	background: #A8CCC9;
 }
 
+.expand {
+	color: red;
+}
+
 /*end of styling for navigation*/
 #main {
 	margin-left: 200px;
