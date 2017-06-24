@@ -51,9 +51,9 @@ var map;
 				position: place.geometry.location
 			});
 			google.maps.event.addListener(marker, 'click', function() {
-				//var rating = (place.rating).toString();
 				infoWindow.setContent(place.name);
 				infoWindow.open(map, this);
+        		console.log(place.place_id);
 			});
 			return marker;
 		}
