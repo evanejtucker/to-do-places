@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
 var map;
 var infoWindow;
@@ -76,6 +77,5 @@ function setType() {
 $(".nav-item").on("click", setType);
 
 google.maps.event.addDomListener(window, 'load', initialize);
-
 
 });
