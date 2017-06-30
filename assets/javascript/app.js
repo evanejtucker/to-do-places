@@ -21,9 +21,13 @@ var service;
 var markers = [];
 var typeSelection = 'liquor_store';
 var selectedMarkers = [];
+var places = [];
+
 
 function initialize() {
 	var center = new google.maps.LatLng(39.7392, -104.9903);
+	var directionsService = new google.maps.DirectionsService();
+    var directionsDisplay = new google.maps.DirectionsRenderer();
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: center,
 		zoom: 13
@@ -49,6 +53,7 @@ function initialize() {
 		};
 		service.nearbySearch(request, callback);
 	})
+
 }
 
 function callback(results, status) {
@@ -99,13 +104,21 @@ function setType() {
 	initialize();
 }
 
+function mapIt() {
+	console.log("test");
+}
+
+
+
 $(".nav-item").on("click", setType);
 
 database.ref().on("child_added", function(snapshot) {
 	var a = snapshot.val();
 	$(".listItem").prepend("-" + a.placeName + "<br>");
+	places.push(a.placeID);
 });
 
+$("#mapIt").on("click", mapIt);
 
 google.maps.event.addDomListener(window, 'load', initialize);
 });
