@@ -11,6 +11,7 @@ var config = {
 	 };
 	 firebase.initializeApp(config);
 
+var auth = firebase.auth();
 var map;
 var infoWindow;
 var database = firebase.database();
@@ -68,7 +69,7 @@ function createMarker(place) {
 		infoWindow.setContent(place.name + "<br>" + "<button class='add'>Add to List</button>" );
 		infoWindow.open(map, this);
 		$(".add").on("click", function() {
-			database.ref().push({ 
+			database.ref().push({
 				placeID: place.id,
 				placeName: place.name
 			});
@@ -106,54 +107,5 @@ database.ref().on("child_added", function(snapshot) {
 });
 
 
-$("#new-user").on("click", function(event){
-    event.preventDefault();
-
-    var email = $("#email").val().trim(),
-    password = $("#pass").val().trim();
-
-    console.log("email: " + email, ";password: " + password);
-
-    var createUser = auth.createUserWithEmailAndPassword(email, password);
-
-    createUser
-    .then(function(user) {
-        console.log(user);
-        alert("yay! new user created!")
-
-
-    })
-    .catch(function(err){
-        console.log(err);
-        alert(err.message);
-
-    });
-
-});
-
-
-$("#sign-in").on("click", function(event){
-    event.preventDefault();
-
-    var signIn = auth.signInWithEmailAndPassword(email, password);
-
-    signIn
-    .then(function(user) {
-        console.log(user);
-        alert("yay! siged in!")
-
-    })
-    .catch(function(err){
-        console.log(err);
-        alert(err.message);
-
-
-});
-
-    
-});
-
-
 google.maps.event.addDomListener(window, 'load', initialize);
-
 });
