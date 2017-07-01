@@ -15,6 +15,7 @@ var auth = firebase.auth();
 var map;
 var infoWindow;
 var database = firebase.database();
+var waypts = [];
 
 var request;
 var service;
@@ -25,10 +26,10 @@ var selectedMarkers = [];
 var places = [];
 
 
+//====================Initialize places map====================
+
 function initialize() {
 	var center = new google.maps.LatLng(39.7392, -104.9903);
-	var directionsService = new google.maps.DirectionsService();
-    var directionsDisplay = new google.maps.DirectionsRenderer();
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: center,
 		zoom: 13
@@ -55,7 +56,6 @@ function initialize() {
 		};
 		service.nearbySearch(request, callback);
 	})
-
 }
 
 function callback(results, status) {
@@ -77,7 +77,7 @@ function createMarker(place) {
 		infoWindow.open(map, this);
 		$(".add").on("click", function() {
 			database.ref().push({
-				placeID: place.id,
+				placeID: place.place_id,
 				placeName: place.name
 			});
 			markers.splice();
@@ -107,8 +107,42 @@ function setType() {
 	initialize();
 }
 
+function grabWaypoints() {
+	for (var i = 0; i < places.length; i++) {
+		waypts[i] = {	
+				stopover: true,
+				location: {'placeId': places[i]}	
+		};
+	}
+	console.log(waypts);
+}
+
 function mapIt() {
-	console.log("test");
+	grabWaypoints();
+	var map = new google.maps.Map(document.getElementById("map"));
+	var directionsService = new google.maps.DirectionsService();
+
+	var directionsDisplay = new google.maps.DirectionsRenderer({
+		map: map
+	});
+
+	directionsService.route({
+		origin: {
+			'placeId': 'ChIJ43izIC2Fa4cR-MengeK0-DI'
+		},
+		destination: {
+			'placeId': 'ChIJFb1AJWd_bIcRFEQ1TXQooQQ'
+		},
+		waypoints: waypts,
+		optimizeWaypoints: true,
+		travelMode: google.maps.TravelMode.DRIVING
+	}, function(response, status) {
+		if (status === 'OK') {
+			directionsDisplay.setDirections(response);
+		} else {
+			window.alert('Directions request failed due to ' + status);
+		}
+	});
 }
 
 function submitPlace() {
@@ -116,8 +150,6 @@ function submitPlace() {
 	typeSelection = null;
 	initialize();
 }
-
-
 
 $(".nav-item").on("click", setType);
 
