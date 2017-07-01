@@ -20,6 +20,7 @@ var request;
 var service;
 var markers = [];
 var typeSelection = 'liquor_store';
+var selectedKeyword;
 var selectedMarkers = [];
 var places = [];
 
@@ -35,7 +36,8 @@ function initialize() {
 	request = {
 		location: center,
 		radius: 8047,
-		types: [typeSelection]
+		types: [typeSelection],
+		keyword: [selectedKeyword]
 	};
 	infoWindow = new google.maps.InfoWindow();
 
@@ -101,11 +103,18 @@ function clearResults(markers) {
 
 function setType() {
 	typeSelection = $(this).attr("val");
+	selectedKeyword = null;
 	initialize();
 }
 
 function mapIt() {
 	console.log("test");
+}
+
+function submitPlace() {
+	selectedKeyword = $("#placeInput").val();
+	typeSelection = null;
+	initialize();
 }
 
 
@@ -119,6 +128,8 @@ database.ref().on("child_added", function(snapshot) {
 });
 
 $("#mapIt").on("click", mapIt);
+
+$("#submit").on("click", submitPlace);
 
 google.maps.event.addDomListener(window, 'load', initialize);
 });
