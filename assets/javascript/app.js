@@ -20,7 +20,7 @@ var waypts = [];
 var request;
 var service;
 var markers = [];
-var typeSelection = 'liquor_store';
+var typeSelection;
 var selectedKeyword;
 var selectedMarkers = [];
 var places = [];
@@ -52,7 +52,7 @@ function initialize() {
 		var request = {
 			location: event.latLng,
 			radius: 5000,
-			types: ['cafe']
+			types: []
 		};
 		service.nearbySearch(request, callback);
 	})
@@ -114,7 +114,6 @@ function grabWaypoints() {
 				location: {'placeId': places[i]}	
 		};
 	}
-	console.log(waypts);
 }
 
 function mapIt() {
@@ -131,7 +130,7 @@ function mapIt() {
 			'placeId': 'ChIJ43izIC2Fa4cR-MengeK0-DI'
 		},
 		destination: {
-			'placeId': 'ChIJFb1AJWd_bIcRFEQ1TXQooQQ'
+			'placeId': 'ChIJ43izIC2Fa4cR-MengeK0-DI'
 		},
 		waypoints: waypts,
 		optimizeWaypoints: true,
@@ -151,6 +150,14 @@ function submitPlace() {
 	initialize();
 }
 
+function removeDatabasePlaces() {
+	database.ref().remove();
+	$('.listItem').empty();
+	places = [];
+	waypts = [];
+	initialize();
+}
+
 $(".nav-item").on("click", setType);
 
 database.ref().on("child_added", function(snapshot) {
@@ -159,9 +166,12 @@ database.ref().on("child_added", function(snapshot) {
 	places.push(a.placeID);
 });
 
+
 $("#mapIt").on("click", mapIt);
 
 $("#submit").on("click", submitPlace);
+
+$("#clear").on("click", removeDatabasePlaces);
 
 google.maps.event.addDomListener(window, 'load', initialize);
 });
