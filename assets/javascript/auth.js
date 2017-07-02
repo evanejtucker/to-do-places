@@ -13,58 +13,106 @@ $( document ).ready(function() {
 var auth = firebase.auth();
 var db = firebase.database();
 
-	$("#new-user").on("click", function(event){
-	    event.preventDefault();
 
-	    var email = $("#email").val().trim(),
-	    password = $("#pass").val().trim();
+$("#sign-in").on("click", function() {
+	event.preventDefault();
 
-	    console.log("email: " + email, ";password: " + password);
+	var email = $("#email").val().trim();
+	var password = $("#pass").val().trim();
 
-	    var createUser = auth.createUserWithEmailAndPassword(email, password);
+	var promise = auth.signInWithEmailAndPassword(email, password);
 
-	    createUser
-	    .then(function(user) {
-	        console.log(user);
-	        alert("yay! new user created!");
-					var newUser = {
-						id:user.uid,
-						email:user.email,
-					};
-					var userpath = db.ref("users/" + user.uid);
-					userpath.set(newUser);
-
-					location.href = "index.html";
-
-	    })
-	    .catch(function(err){
-	        console.log(err);
-	        alert(err.message);
-
-	    });
-
+	promise.catch(function(err) {
+		console.log(err);
 	});
 
+});
 
-	$("#sign-in").on("click", function(event){
-	    event.preventDefault();
+$("#new-user").on("click", function() {
+	event.preventDefault();
 
-	    var signIn = auth.signInWithEmailAndPassword(email, password);
+	var email = $("#email").val().trim();
+	var password = $("#pass").val().trim();
 
-	    signIn
-	    .then(function(user) {
-	        console.log(user);
-	        alert("yay! siged in!")
+	var promise = auth.createUserWithEmailAndPassword(email, password);
 
-	    })
-	    .catch(function(err){
-	        console.log(err);
-	        alert(err.message);
-
-
+	promise.catch(function(err) {
+		console.log(err);
 	});
 
-	});
+	$("#email").val("");
+	$("#pass").val("");
+
+});
+
+$("#sign-out").on("click", function() {
+	firebase.auth().signOut();
+});
+
+
+firebase.auth().onAuthStateChanged(function(firebaseUser) {
+	if(firebaseUser) {
+		console.log(firebaseUser);
+		$("#sign-out").show();
+		
+	} else {
+		console.log("no User Signed In");
+		$("#sign-out").hide();
+
+	}
+});
+	// $("#new-user").on("click", function(event){
+	//     event.preventDefault();
+
+	//     var email = $("#email").val().trim(),
+	//     password = $("#pass").val().trim();
+
+	//     console.log("email: " + email, ";password: " + password);
+
+	//     var createUser = auth.createUserWithEmailAndPassword(email, password);
+
+	//     createUser
+	//     .then(function(user) {
+	//         console.log(user);
+	//         alert("yay! new user created!");
+	// 				var newUser = {
+	// 					id:user.uid,
+	// 					email:user.email,
+	// 				};
+	// 				var userpath = db.ref("users/" + user.uid);
+	// 				userpath.set(newUser);
+
+	// 				location.href = "index.html";
+
+	//     })
+	//     .catch(function(err){
+	//         console.log(err);
+	//         alert(err.message);
+
+	//     });
+
+	// });
+
+
+	// $("#sign-in").on("click", function(event){
+	//     event.preventDefault();
+
+	//     var signIn = auth.signInWithEmailAndPassword(email, password);
+
+	//     signIn
+	//     .then(function(user) {
+	//         console.log(user);
+	//         alert("yay! siged in!")
+
+	//     })
+	//     .catch(function(err){
+	//         console.log(err);
+	//         alert(err.message);
+
+
+	// });
+
+	// });
 
 
 
