@@ -15,12 +15,24 @@ var config = {
 	 };
 	 firebase.initializeApp(config);
 var database = firebase.database();
-database.ref().on("child_added", function(snapshot) {
-	var a = snapshot.val();
-	 $(".listItem").prepend("-" + a.placeName + "<br>");
-	 places.push(a.placeID);
-});
+var userId;
 
+firebase.auth().onAuthStateChanged(function(firebaseUser) {
+	if(firebaseUser) {
+    userId = firebaseUser.uid;
+		console.log("Firebase User", userId);
+    database.ref(userId).on("child_added", function(snapshot) {
+	    var a = snapshot.val();
+      renderPlace(a)
+    });
+	} else {
+		console.log("no User Signed In Using LocalStorage");
+    var items = storage('user_items').get()
+    for (var i = 0; i < items.length; i++) {
+      renderPlace(items[i]);
+    }
+	}
+});
 
 //====================GLOBAL VARIABLES====================
 
@@ -124,10 +136,11 @@ var waypoints = {
 			infoWindow.setContent(place.name + "<br>" + "<button class='add'>Add to List</button>" );
 			infoWindow.open(map, this);
 			$(".add").on("click", function() {
-				database.ref().push({
+        addPlaceToDb({
 					placeID: place.place_id,
 					placeName: place.name
-				});
+				})
+				// database.ref(uid).push();
 				markers.splice();
 				waypoints.clearMarkers(markers);
 			});
@@ -146,12 +159,12 @@ var waypoints = {
 //====================BUTTONS====================
 
 
-var buttons = {	
+var buttons = {
 	mapIt: function() {
 		for (var i = 0; i < places.length; i++) {
-			waypts[i] = {	
+			waypts[i] = {
 				stopover: true,
-				location: {'placeId': places[i]}	
+				location: {'placeId': places[i]}
 			};
 		}
 		var map = new google.maps.Map(document.getElementById("map"));
@@ -169,7 +182,7 @@ var buttons = {
 			waypoints: waypts,
 			optimizeWaypoints: true,
 			travelMode: google.maps.TravelMode.DRIVING
-		}, 
+		},
 		function(response, status) {
 			if (status === 'OK') {
 				directionsDisplay.setDirections(response);
@@ -213,4 +226,41 @@ $("#clear").on("click", buttons.removeDatabasePlaces);
 
 
 google.maps.event.addDomListener(window, 'load', defaultMap.initialize);
+
+function renderPlace (place) {
+  $(".listItem").prepend("-" + place.placeName + "<br>");
+  places.push(place.placeID);
+}
+
+function addPlaceToDb (place) {
+  if (userId) {
+    database.ref(userId).push(place)
+  } else {
+    storage('user_items').add(place)
+    renderPlace(place)
+  }
+}
+
+
+function storage (name) {
+
+  function get () {
+    var data = localStorage.getItem(name);
+    if (data) {
+      return JSON.parse(data);
+    } else {
+      return [];
+    }
+  }
+
+  return {
+    add: function (item) {
+      var data = get()
+      data.push(item)
+      localStorage.setItem(name, JSON.stringify(data))
+      return data
+    },
+    get: get
+  }
+}
 });

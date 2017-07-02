@@ -17,8 +17,8 @@ var db = firebase.database();
 $("#sign-in").on("click", function() {
 	event.preventDefault();
 
-	var email = $("#email").val().trim();
-	var password = $("#pass").val().trim();
+	var email = $("#signin-form>.email").val().trim();
+	var password = $("#signin-form>.pass").val().trim();
 
 	var promise = auth.signInWithEmailAndPassword(email, password);
 
@@ -31,8 +31,8 @@ $("#sign-in").on("click", function() {
 $("#new-user").on("click", function() {
 	event.preventDefault();
 
-	var email = $("#email").val().trim();
-	var password = $("#pass").val().trim();
+	var email = $("#new-user-form>.email").val().trim();
+	var password = $("#new-user-form>.pass").val().trim();
 
 	var promise = auth.createUserWithEmailAndPassword(email, password);
 
@@ -40,8 +40,8 @@ $("#new-user").on("click", function() {
 		console.log(err);
 	});
 
-	$("#email").val("");
-	$("#pass").val("");
+	$("#new-user-form>.email").val("");
+	$("#new-user-form>.pass").val("");
 
 });
 
@@ -54,7 +54,6 @@ firebase.auth().onAuthStateChanged(function(firebaseUser) {
 	if(firebaseUser) {
 		console.log(firebaseUser);
 		$("#sign-out").show();
-		
 	} else {
 		console.log("no User Signed In");
 		$("#sign-out").hide();
