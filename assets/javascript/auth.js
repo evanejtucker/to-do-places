@@ -22,6 +22,8 @@ $("#sign-in").on("click", function() {
 
 	var promise = auth.signInWithEmailAndPassword(email, password);
 
+	
+
 	promise.catch(function(err) {
 		console.log(err);
 	});
@@ -54,65 +56,16 @@ firebase.auth().onAuthStateChanged(function(firebaseUser) {
 	if(firebaseUser) {
 		console.log(firebaseUser);
 		$("#sign-out").show();
+		$("#continue").show();
+		$("#guest").hide();
+
 	} else {
 		console.log("no User Signed In");
 		$("#sign-out").hide();
+		$("#continue").hide();
 
 	}
 });
-	// $("#new-user").on("click", function(event){
-	//     event.preventDefault();
-
-	//     var email = $("#email").val().trim(),
-	//     password = $("#pass").val().trim();
-
-	//     console.log("email: " + email, ";password: " + password);
-
-	//     var createUser = auth.createUserWithEmailAndPassword(email, password);
-
-	//     createUser
-	//     .then(function(user) {
-	//         console.log(user);
-	//         alert("yay! new user created!");
-	// 				var newUser = {
-	// 					id:user.uid,
-	// 					email:user.email,
-	// 				};
-	// 				var userpath = db.ref("users/" + user.uid);
-	// 				userpath.set(newUser);
-
-	// 				location.href = "index.html";
-
-	//     })
-	//     .catch(function(err){
-	//         console.log(err);
-	//         alert(err.message);
-
-	//     });
-
-	// });
-
-
-	// $("#sign-in").on("click", function(event){
-	//     event.preventDefault();
-
-	//     var signIn = auth.signInWithEmailAndPassword(email, password);
-
-	//     signIn
-	//     .then(function(user) {
-	//         console.log(user);
-	//         alert("yay! siged in!")
-
-	//     })
-	//     .catch(function(err){
-	//         console.log(err);
-	//         alert(err.message);
-
-
-	// });
-
-	// });
-
 
 
 });
