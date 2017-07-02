@@ -76,15 +76,28 @@
 <!-- will contain all body content -->
 <div class="container-fluid">
 	<div class="row" id="main">
-		<div class="col-md-6 col-sm-12" id="map"><h3 id="loading"><i class="fa fa-spinner" aria-hidden="true"></i>Loading...</h3></div>
-		<div class="col-md-6 col-sm-12" id="list">
-			<h2 id="list-title"> My To-Do List</h2>
-			<br>
-			<div class="listItem">
+		<div class="col-md-6 col-sm-12" id="map">
+			<h3 id="loading"><i class="fa fa-spinner" aria-hidden="true"></i>Loading...</h3>
+		</div>
 
-			</div><!-- /listItem -->
-			<button class = "btn btn-success" id="mapIt">Map It</button>
-			<button class = "btn btn-danger" id="clear">Clear</button>
+		<div id="radius-box">
+			<form id="myForm"> Radius:  
+				<input type="radio" name="radius" value= "1610" class="radius-btn" id="1mile">1 Mile
+				<input type="radio" name="radius" value= "3220" class="radius-btn" id="2mile">2 Miles
+				<input type="radio" name="radius" value= "4830" class="radius-btn" id="3mile">3 Miles
+				<input type="radio" name="radius" value= "6440" class="radius-btn" id="4mile">4 Miles
+				<input type="radio" name="radius" value= "8050" class="radius-btn" id="5mile">5 Miles
+			</form>	
+		</div>
+
+			<div class="col-md-6 col-sm-12" id="list">
+				<h2 id="list-title"> My To-Do List</h2>
+				<br>
+				<div class="listItem">
+
+				</div><!-- /listItem -->
+				<button class = "btn btn-success" id="mapIt">Map It</button>
+				<button class = "btn btn-danger" id="clear">Clear</button>
 		</div>
 	</div>
 
@@ -100,9 +113,11 @@
 <!-- Links JQuery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 
+
 <!-- Links gamescript -->
 <script type="text/javascript" src="assets/javascript/app.js">
 </script>
+
 
 </body>
 </html>
