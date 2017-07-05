@@ -48,6 +48,8 @@ var places = [];
 var markers = [];
 var typeSelection = 'cafe';
 var selectedKeyword;
+var startlocation;
+var endLocation;
 
 
 //====================DEFAULT MAP====================
@@ -133,7 +135,7 @@ var waypoints = {
 			position: place.geometry.location
 		});
 		google.maps.event.addListener(marker, 'click', function() {
-			infoWindow.setContent(place.name + "<br>" + "<button class='add'>Add to List</button>" );
+			infoWindow.setContent(place.name + "<br>" + "<button class='btn btn-success add'>Add to List</button>" );
 			infoWindow.open(map, this);
 			$(".add").on("click", function() {
         addPlaceToDb({
@@ -202,6 +204,10 @@ var buttons = {
 		places = [];
 		waypts = [];
 		defaultMap.initialize();
+	},
+	setUserLocation: function () {
+		startLocation = $("#startLocation").val();
+		endLocation = $("#endLocation").val();
 	}
 }
 
@@ -222,6 +228,8 @@ $("#mapIt").on("click", buttons.mapIt);
 $("#submit").on("click", buttons.submitPlace);
 
 $("#clear").on("click", buttons.removeDatabasePlaces);
+
+$("#userSubmit").on("click", buttons.setUserLocation);
 
 
 

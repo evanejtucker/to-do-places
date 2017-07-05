@@ -24,6 +24,7 @@
 
 	<!-- links google fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Spectral" rel="stylesheet">
 
 	<!-- Links font awesome -->
 	<script src="https://use.fontawesome.com/d577f206bb.js"></script>
@@ -38,13 +39,13 @@
 
 <body>
 
+
 <nav class="navbar navbar-default" id="top-nav">
   <div class="container-fluid">
   	<a class="navbar-brand" href="#"><i class="fa fa-check-circle" aria-hidden="true"></i> To-Do-Places</a>
   	<ul class="nav nav-pills pull-right" id="sign-in">
-	  <li role="presentation"><a href="auth.html">Sign In</a></li>
-	  <li role="presentation"><a href="auth.html">Sign Out</a></li>
-	  <li role="presentation"><a href="auth.html">Sign Up</a></li>
+	  <li role="presentation"><a href="auth.html">Profile</a></li>
+	  <li role="presentation"><a href="auth.html"><i class="fa fa-question" aria-hidden="true"></i></a></li>
 	</ul>
   </div>
 </nav>
@@ -52,21 +53,27 @@
 <!-- Sidebar -->
 <div id="sidebar-wrapper">
 	<ul class="side-nav">
-		<div class="panel panel-default">
-			<div class="panel-heading">Search for Places</h3>
-			</div>
-			<div class="panel-body">
-				<input type="text" class="form-control" id="placeInput" placeholder="Search">
-				<button type="submit" class="btn btn-default" id="submit">Submit</button>
-			</div>
+		<div class="search">
+			<h3>Search for Places</h3>
+			<hr>
+			<input type="text" class="form-control" id="placeInput" placeholder="ex. safeway">
+			<button type="submit" class="btn btn-default" id="submit">Search</button>
 		</div>
-		<li class="nav-item" id="item-1" val="grocery_or_supermarket"><i class="fa fa-shopping-cart" aria-hidden="true"></i>  Groceries</li>
-		<li class="nav-item" id="item-2" val="bank"><i class="fa fa-money" aria-hidden="true"></i> Banks</li>
-		<li class="nav-item" id="item-3" val="liquor_store"> <i class="fa fa-glass" aria-hidden="true"></i> Liquor Stores</li>
-		<li class="nav-item" id="item-4" val="pharmacy"><i class="fa fa-medkit" aria-hidden="true"></i> Drug Stores</li>
-		<li class="nav-item" id="item-5" val="Average_Joes_Gym"><i class="fa fa-flask" aria-hidden="true"></i> Meth Labs</li>
-		<li class="nav-item" id="item-6" val="gas_station"><i class="fa fa-car" aria-hidden="true"></i> Gas Stations</li>
-		<li class="nav-item" id="item-7" val="gym"> <i class="fa fa-bicycle" aria-hidden="true"></i> Fitness</li>
+
+		<div class=quickLinks>
+			<h3>Quick Search</h3>
+			<hr>
+			<li class="nav-item" id="grocery" val="grocery_or_supermarket"><i class="fa fa-shopping-cart" aria-hidden="true"></i>  Groceries</li>
+			<li class="nav-item" id="bank" val="bank"><i class="fa fa-university" aria-hidden="true"></i> Banks</li>
+			<li class="nav-item" id="ATM" val="atm"><i class="fa fa-money" aria-hidden="true"></i> ATM</li>
+			<li class="nav-item" id="liquor" val="liquor_store"><i class="fa fa-glass" aria-hidden="true"></i> Liquor Stores</li>
+			<li class="nav-item" id="pharmacy" val="pharmacy"><i class="fa fa-medkit" aria-hidden="true"></i> Pharmacies</li>
+			<li class="nav-item" id="convenience" val="convenience_store"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Convenience Stores</li>
+			<li class="nav-item" id="gas" val="gas_station"><i class="fa fa-car" aria-hidden="true"></i> Gas Stations</li>
+			<li class="nav-item" id="gym" val="gym"> <i class="fa fa-bicycle" aria-hidden="true"></i> Fitness</li>
+			<li class="nav-item" id="pet" val="pet_store"><i class="fa fa-paw" aria-hidden="true"></i> Pet Store</li>
+			<li class="nav-item" id="takeout" val="meal_takeaway"><i class="fa fa-cutlery" aria-hidden="true"></i> Takeout</li>
+		</div>
 	</ul>   
 </div>
 
@@ -90,13 +97,35 @@
 			<div class="col-md-6 col-sm-12" id="list">
 				<h2 id="list-title"> My To-Do List</h2>
 				<br>
+				<!-- contains user input list items from firebase -->
 				<div class="listItem">
 
-				</div><!-- /listItem -->
-				<button class = "btn btn-success" id="mapIt">Map It</button>
-				<button class = "btn btn-danger" id="clear">Clear</button>
+				</div>
+
+				<!-- user input for start end location -->
+				<!-- will eventually be in modal -->
+				<div class="locationInput">
+					<label for="startLocation">Start Location</label>
+					<input type="text" class="form-control" id="startLocation" placeholder="Start Location">
+					<label>
+				      <input type="checkbox"> End locations same as start
+				    </label><br>
+					<label for="endLocation">End Location</label>
+					<input type="text" class="form-control" id="endLocation" placeholder="End Location">
+				    <button type="submit" class="btn btn-default" id="userSubmit">Submit</button>
+				</div>
+
+				<div class="routeBtn">
+					<button class = "btn btn-success" id="mapIt"><strong>Map It</strong></button>
+					<button class = "btn btn-danger" id="clear"><strong>Clear</strong></button>
+				</div>
+
+
+			</div>
 		</div>
 	</div>
+
+
 
 <!-- footer -->
 <div class="row text-center" id="footer">
