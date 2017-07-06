@@ -48,7 +48,7 @@ var places = [];
 var markers = [];
 var typeSelection = 'cafe';
 var selectedKeyword;
-var startlocation;
+var startLocation;
 var endLocation;
 
 
@@ -80,7 +80,10 @@ var newMap = {
         	types: [typeSelection],
         	keyword: [selectedKeyword]
         };
-        infoWindow = new google.maps.InfoWindow();
+
+        infoWindow = new google.maps.InfoWindow( {
+
+        });
 		var service = new google.maps.places.PlacesService(map);
 		service.nearbySearch(request, newMap.callback);
 		google.maps.event.addListener(map, 'rightclick', function(event) {
@@ -134,17 +137,34 @@ var waypoints = {
 			map: map,
 			position: place.geometry.location
 		});
+
 		google.maps.event.addListener(marker, 'click', function() {
-			infoWindow.setContent(place.name + "<br>" + "<button class='btn btn-success add'>Add to List</button>" );
+			var infoContent = "<div id='infoWindow'>"
+							+"<div id='infoHeader'>"+place.name+"</div>"
+							+"<hr>"
+							+"<span>"
+							+"<button class='btn btn-success add' id='add'> Add to List </button>"
+							+"<button class='btn btn-info add' id='start'> Set Start Location </button>"
+							+"<button class='btn btn-warning add' id='end'> Set End Location </button>"
+							+"</span>"
+							+"</div>";
+			infoWindow.setContent(infoContent);
 			infoWindow.open(map, this);
 			$(".add").on("click", function() {
-        addPlaceToDb({
+        	addPlaceToDb({
 					placeID: place.place_id,
 					placeName: place.name
 				})
-				// database.ref(uid).push();
 				markers.splice();
 				waypoints.clearMarkers(markers);
+			});
+			$("#start").on("click", function() {
+				startLocation = place.place_id;
+				console.log(startLocation);
+			});
+			$("#end").on("click", function() {
+				endLocation = place.place_id;
+				console.log(endLocation);
 			});
 		});
 		return marker;
@@ -174,12 +194,13 @@ var buttons = {
 		var directionsDisplay = new google.maps.DirectionsRenderer({
 			map: map
 		});
+		locationCheck();
 		directionsService.route({
 			origin: {
-				'placeId': 'ChIJ43izIC2Fa4cR-MengeK0-DI'
+				'placeId': startLocation
 			},
 			destination: {
-				'placeId': 'ChIJ43izIC2Fa4cR-MengeK0-DI'
+				'placeId': endLocation
 			},
 			waypoints: waypts,
 			optimizeWaypoints: true,
@@ -205,14 +226,23 @@ var buttons = {
 		waypts = [];
 		defaultMap.initialize();
 	},
-	setUserLocation: function () {
-		startLocation = $("#startLocation").val();
-		endLocation = $("#endLocation").val();
-	}
+
 }
 
-
-
+locationCheck = function() {
+	if (!startLocation && !endLocation) {
+		alert("Please Selected A start Location and an End Location")
+		defaultMap.initialize();
+	}
+	else if (!startLocation) {
+		alert("please select a start location");
+		defaultMap.initialize();
+	}
+	else if (!endLocation) {
+		alert("please select and end location");
+		defaultMap.initialize();
+	}
+}
 
 //====================CLICK EVENTS====================
 $('#myForm input').on('change', function() {
