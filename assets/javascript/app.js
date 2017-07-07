@@ -225,10 +225,10 @@ var buttons = {
 		});
 		directionsService.route({
 			origin: {
-				'placeId': 'ChIJ43izIC2Fa4cR-MengeK0-DI'
+				'placeId': startLocation
 			},
 			destination: {
-				'placeId': 'ChIJ43izIC2Fa4cR-MengeK0-DI'
+				'placeId': endLocation
 			},
 			waypoints: routeWaypts,
 			optimizeWaypoints: true,
