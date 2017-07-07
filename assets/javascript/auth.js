@@ -22,7 +22,6 @@ $("#sign-in").on("click", function() {
 
 	var promise = auth.signInWithEmailAndPassword(email, password);
 
-	
 
 	promise.catch(function(err) {
 		console.log(err);
@@ -58,6 +57,7 @@ firebase.auth().onAuthStateChanged(function(firebaseUser) {
 		$("#sign-out").show();
 		$("#continue").show();
 		$("#guest").hide();
+		// location.href = "index.html";
 
 	} else {
 		console.log("no User Signed In");
@@ -67,5 +67,22 @@ firebase.auth().onAuthStateChanged(function(firebaseUser) {
 	}
 });
 
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+    showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    if (n > x.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = x.length} ;
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+    x[slideIndex-1].style.display = "block";
+};
 
 });

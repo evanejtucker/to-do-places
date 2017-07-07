@@ -1,0 +1,47 @@
+body {
+	color: #012949 ;
+  background-color: #75B9BE;
+	/*font-family: 'Open Sans', sans-serif;*/
+	font-family: 'Spectral', serif;
+}
+
+* Start of Styling for Navigation*/
+#top-nav {
+	position: fixed;
+	z-index: 1;
+	width: 100%;
+	height: 75px;
+}
+
+.navbar-brand {
+	padding-left: 35px;
+	margin-top: 10px;
+	font-size: 1.8em;
+	color: #75B9BE;
+}
+
+#signin-form {
+  padding-left: 35px;
+	margin-top: 10px;
+	font-size: 1.8em;
+	color: #75B9BE;
+
+}
+
+.signUp {
+	text-align: center;
+	background-color: #F7F9F9;
+	height: 60%;
+	padding: 30px;
+}
+
+
+.email {
+	padding-right: 100px;
+	margin-bottom: 7px;
+}
+
+.pass {
+		padding-right: 100px;
+		margin-bottom: 7px;
+}
