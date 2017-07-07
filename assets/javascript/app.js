@@ -42,9 +42,10 @@ var center = new google.maps.LatLng(39.7392, -104.990);
 var infoWindow;
 var radius = 8050;
 
-
-var waypts = [];
+var routeWaypts = [];
+var viewWaypts = [];
 var places = [];
+var placesLoc = [];
 var markers = [];
 var typeSelection = 'cafe';
 var selectedKeyword;
@@ -61,6 +62,28 @@ var defaultMap = {
 			center: center,
 			zoom: 3
 		});
+	}
+}
+
+var viewPlacesMap = {
+	initialize: function() {
+		var map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 11,
+			center: center,
+		});
+		var infowindow = new google.maps.InfoWindow({
+			content: "hello"
+		});
+		for (var i = 0; i < placesLoc.length; i++) {
+			var marker = new google.maps.Marker({
+				position: placesLoc[i],
+				map: map,
+				title: 'Hello World!'
+			});
+			marker.addListener('click', function() {
+				infowindow.open(map, marker);
+			});
+		}			
 	}
 }
 
@@ -140,21 +163,22 @@ var waypoints = {
 
 		google.maps.event.addListener(marker, 'click', function() {
 			var infoContent = "<div id='infoWindow'>"
-							+"<div id='infoHeader'>"+place.name+"</div>"
-							+"<hr>"
-							+"<span>"
-							+"<button class='btn btn-success add' id='add'> Add to List </button>"
-							+"<button class='btn btn-info add' id='start'> Set Start Location </button>"
-							+"<button class='btn btn-warning add' id='end'> Set End Location </button>"
-							+"</span>"
-							+"</div>";
+			+"<div id='infoHeader'>"+place.name+"</div>"
+			+"<hr>"
+			+"<span>"
+			+"<button class='btn btn-success add' id='add'> Add to List </button>"
+			+"<button class='btn btn-info add' id='start'> Set Start Location </button>"
+			+"<button class='btn btn-warning add' id='end'> Set End Location </button>"
+			+"</span>"
+			+"</div>";
 			infoWindow.setContent(infoContent);
 			infoWindow.open(map, this);
 			$(".add").on("click", function() {
-        	addPlaceToDb({
+				addPlaceToDb({
 					placeID: place.place_id,
 					placeName: place.name
 				})
+				placesLoc.push(place.geometry.location);
 				markers.splice();
 				waypoints.clearMarkers(markers);
 			});
@@ -184,7 +208,12 @@ var waypoints = {
 var buttons = {
 	mapIt: function() {
 		for (var i = 0; i < places.length; i++) {
-			waypts[i] = {
+			viewWaypts[i] = places
+		}
+	},
+	makeRoute: function() {
+		for (var i = 0; i < places.length; i++) {
+			routeWaypts[i] = {
 				stopover: true,
 				location: {'placeId': places[i]}
 			};
@@ -194,15 +223,14 @@ var buttons = {
 		var directionsDisplay = new google.maps.DirectionsRenderer({
 			map: map
 		});
-		locationCheck();
 		directionsService.route({
 			origin: {
-				'placeId': startLocation
+				'placeId': 'ChIJ43izIC2Fa4cR-MengeK0-DI'
 			},
 			destination: {
-				'placeId': endLocation
+				'placeId': 'ChIJ43izIC2Fa4cR-MengeK0-DI'
 			},
-			waypoints: waypts,
+			waypoints: routeWaypts,
 			optimizeWaypoints: true,
 			travelMode: google.maps.TravelMode.DRIVING
 		},
@@ -222,6 +250,7 @@ var buttons = {
 	removeDatabasePlaces: function () {
 		database.ref().remove();
 		$('.listItem').empty();
+		placesLoc = [];
 		places = [];
 		waypts = [];
 		defaultMap.initialize();
@@ -253,7 +282,7 @@ $('#myForm input').on('change', function() {
 
 $(".nav-item").on("click", newMap.setType);
 
-$("#mapIt").on("click", buttons.mapIt);
+$("#mapIt").on("click", viewPlacesMap.initialize);
 
 $("#submit").on("click", buttons.submitPlace);
 
