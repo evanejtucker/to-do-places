@@ -4,13 +4,14 @@
 	<meta charset="UTF-8">
 
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-	
+
 	<!-- Google Places API -->
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCFq7H3-UXSck18PeVELlhhAT0sVtrLqxs"></script>
 
 	<!-- JQuery -->
   	<script src="https://code.jquery.com/jquery.js"></script>
 
+<!--Firebase-->
   	<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
 
 	<!-- Latest compiled and minified CSS -->
@@ -74,7 +75,7 @@
 			<li class="nav-item" id="pet" val="pet_store"><i class="fa fa-paw" aria-hidden="true"></i> Pet Store</li>
 			<li class="nav-item" id="takeout" val="meal_takeaway"><i class="fa fa-cutlery" aria-hidden="true"></i> Takeout</li>
 		</div>
-	</ul>   
+	</ul>
 </div>
 
 <!-- will contain all body content -->
@@ -85,13 +86,13 @@
 		</div>
 
 		<div id="radius-box">
-			<form id="myForm"> Radius:  
+			<form id="myForm"> Radius:
 				<input type="radio" name="radius" value= "1610" class="radius-btn" id="1mile">1 Mile
 				<input type="radio" name="radius" value= "3220" class="radius-btn" id="2mile">2 Miles
 				<input type="radio" name="radius" value= "4830" class="radius-btn" id="3mile">3 Miles
 				<input type="radio" name="radius" value= "6440" class="radius-btn" id="4mile">4 Miles
 				<input type="radio" name="radius" value= "8050" class="radius-btn" id="5mile">5 Miles
-			</form>	
+			</form>
 		</div>
 
 			<div class="col-md-6 col-sm-12" id="list">
@@ -101,7 +102,7 @@
 				<div class="listItem">
 
 				</div>
-				
+
 				<div class="routeBtn">
 					<button class = "btn btn-success" id="mapIt"><strong>Map It</strong></button>
 					<button class = "btn btn-danger" id="clear"><strong>Clear</strong></button>
