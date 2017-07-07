@@ -249,6 +249,7 @@ var buttons = {
 	},
 	removeDatabasePlaces: function () {
 		database.ref().remove();
+		localStorage.clear();
 		$('.listItem').empty();
 		placesLoc = [];
 		places = [];
