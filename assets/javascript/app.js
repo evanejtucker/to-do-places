@@ -280,6 +280,8 @@ $('#myForm input').on('change', function() {
    newMap.initialize();
 });
 
+$("#makeRoute").on("click", buttons.makeRoute);
+
 $(".nav-item").on("click", newMap.setType);
 
 $("#mapIt").on("click", viewPlacesMap.initialize);
